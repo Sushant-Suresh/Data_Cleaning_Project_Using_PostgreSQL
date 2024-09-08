@@ -4,9 +4,9 @@ CREATE DATABASE nashville_housing_project;
 -- Creating `nashville` Table
 DROP TABLE IF EXISTS nashville;
 CREATE TABLE nashville (uniqueid INT, parcelid VARCHAR(80), landuse VARCHAR(80), address VARCHAR(80), 
-                        saledate DATE, saleprice VARCHAR(10), legalreference VARCHAR(80), soldasvacant VARCHAR(5),	
-						ownername VARCHAR(80), owneraddress VARCHAR(80), acreage FLOAT, taxdistrict VARCHAR(80), 
-						landvalue INT, buildingvalue INT, totalvalue INT, yearbuilt INT, bedrooms INT, fullbath INT, halfbath INT);
+                        saledate DATE, saleprice VARCHAR(10), legalreference VARCHAR(80), soldasvacant VARCHAR(5),
+	                ownername VARCHAR(80), owneraddress VARCHAR(80), acreage FLOAT, taxdistrict VARCHAR(80),
+	                landvalue INT, buildingvalue INT, totalvalue INT, yearbuilt INT, bedrooms INT, fullbath INT, halfbath INT);
 
 -- Imported Data From .csv file
 
@@ -58,7 +58,7 @@ ADD CONSTRAINT nashville_pk PRIMARY KEY (uniqueid);
 					WHERE address IS NULL;
 					 
 					-- Using SELF-JOIN to Populate the NULL `address` Values With an `address` Having the Same `parcelid`
-				    SELECT a.parcelid, a.address, 
+                                        SELECT a.parcelid, a.address, 
 					       b.parcelid, b.address, 
 					       COALESCE(a.address, b.address) AS address_notnull
 					FROM nashville AS a
@@ -72,8 +72,8 @@ ADD CONSTRAINT nashville_pk PRIMARY KEY (uniqueid);
 					SET address = COALESCE(b.address, a.address)
 					FROM nashville AS b
 					WHERE a.parcelid = b.parcelid
-					      AND a.uniqueid <> b.uniqueid
-					      AND a.address IS NULL;
+					AND a.uniqueid <> b.uniqueid
+					AND a.address IS NULL;
 					
 					-- Checking the output
 					SELECT COUNT(*) AS address_null_count
@@ -118,14 +118,14 @@ ADD CONSTRAINT nashville_pk PRIMARY KEY (uniqueid);
 					                        WHEN owneraddress IS NOT NULL THEN LEFT(owneraddress, POSITION(',' IN owneraddress) - 1)
 					                        ELSE NULL
 					                    END,
-						  owner_state = CASE
+					      owner_state = CASE
 					                        WHEN owneraddress IS NOT NULL THEN TRIM(SUBSTRING(owneraddress FROM LENGTH(owneraddress) - 2))
 					                        ELSE NULL
 					                    END,
-						   owner_city = CASE
-						                    WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
-									        ELSE NULL
-									    END;
+					       owner_city = CASE
+						                WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
+						                ELSE NULL
+							    END;
 
 					-- Checking the Results
 					SELECT owneraddress, owner_address, owner_city, owner_state
@@ -144,11 +144,11 @@ ADD CONSTRAINT nashville_pk PRIMARY KEY (uniqueid);
 
 					-- Formatting Values - Y and N Into Yes and No Respectively. 
 					UPDATE nashville
-					SET SoldAsVacant =  CASE   
-							                WHEN SoldAsVacant = 'Y' THEN 'Yes'
-							                WHEN SoldAsVacant = 'N' THEN 'No'
-							                ELSE SoldAsVacant
-							                END;
+					SET SoldAsVacant =  CASE
+						                WHEN SoldAsVacant = 'Y' THEN 'Yes'
+						                WHEN SoldAsVacant = 'N' THEN 'No'
+						                ELSE SoldAsVacant
+						            END;
 
 					-- Checking the Results
 					SELECT soldasvacant, COUNT(*)
