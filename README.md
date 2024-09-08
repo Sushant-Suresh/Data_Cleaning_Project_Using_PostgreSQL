@@ -12,10 +12,12 @@ The following tasks were performed:
 ```sql
 -- Creating `nashville` Table
 DROP TABLE IF EXISTS nashville;
-CREATE TABLE nashville (uniqueid INT, parcelid VARCHAR(80), landuse VARCHAR(80), address VARCHAR(80), 
-                        saledate DATE, saleprice VARCHAR(10), legalreference VARCHAR(80), soldasvacant VARCHAR(5),	
-                        ownername VARCHAR(80), owneraddress VARCHAR(80), acreage FLOAT, taxdistrict VARCHAR(80),
-                        landvalue INT, buildingvalue INT, totalvalue INT, yearbuilt INT, bedrooms INT, fullbath INT, halfbath INT);
+CREATE TABLE nashville (uniqueid INT, parcelid VARCHAR(80), landuse VARCHAR(80),
+                        address VARCHAR(80), saledate DATE, saleprice VARCHAR(10),
+                        legalreference VARCHAR(80), soldasvacant VARCHAR(5),	
+                        ownername VARCHAR(80), owneraddress VARCHAR(80), acreage FLOAT,
+                        taxdistrict VARCHAR(80), landvalue INT, buildingvalue INT, totalvalue INT,
+                        yearbuilt INT, bedrooms INT, fullbath INT, halfbath INT);
 ```
 
 ## Overview of data
@@ -66,7 +68,7 @@ DROP COLUMN saleprice;
 
 ## Populate missing values in 'address' column
 ```sql
--- Entries With the Same `parcelid` Have the same `address`. I will be Using this Information to Fill up NULL `address` Values:
+-- Entries With the Same `parcelid` Have the same `address`. I'll be Using this Information to Fill up NULL `address` Values:
 
 -- Identifying Rows With NULL Values in `address` Column
 SELECT *
@@ -219,8 +221,8 @@ GROUP BY soldasvacant;
 ## Removing Duplicate Rows
 ```sql
 /*
-If `parcelid`, `address`, `saleprice_int`, `saledate`, & `legalreference` are the Same for Multiple Rows, Then it is a Duplicate.
-I will be Uing This Information to Remove Duplicates:
+If `parcelid`, `address`, `saleprice_int`, `saledate`, & `legalreference` are the Same for Multiple Rows,
+Then it is a Duplicate. I will be Uing This Information to Remove Duplicates:
 */
 
 -- Identifying Duplicate Records
