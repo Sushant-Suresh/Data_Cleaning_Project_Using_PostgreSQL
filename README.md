@@ -124,7 +124,7 @@ ADD COLUMN city VARCHAR(80);
 -- Updating the New Columns
 UPDATE nashville
 SET address_ = LEFT(address, POSITION(',' IN address) - 1),
-city = TRIM(SUBSTRING(address FROM POSITION(',' IN address) + 1));
+    city = TRIM(SUBSTRING(address FROM POSITION(',' IN address) + 1));
 
 -- Checking the Results
 SELECT address, address_, city
