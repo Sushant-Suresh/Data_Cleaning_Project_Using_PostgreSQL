@@ -1,4 +1,6 @@
 # Data Cleaning Project
+![aiimg](https://github.com/user-attachments/assets/142c227c-9629-4060-b6af-114fc05a26b6)
+
 In this project, I was using PostgreSQL to clean [Nashville Housing dataset](https://github.com/AlexTheAnalyst/PortfolioProjects/blob/main/Nashville%20Housing%20Data%20for%20Data%20Cleaning.xlsx). The Dataset has more than 56,000 rows and 19 columns.
 
 The following tasks were performed:
