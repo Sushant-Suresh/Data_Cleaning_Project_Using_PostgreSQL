@@ -233,6 +233,7 @@ WITH ranked_rows AS (SELECT uniqueid, parcelid, address_, saleprice_int, saledat
                      ORDER BY uniqueid) AS row_num
                      FROM nashville)
 SELECT uniqueid, parcelid, address_, saleprice_int, saledate, legalreference
+FROM ranked_rows
 WHERE row_num > 1;
 ```
 **Output:**
