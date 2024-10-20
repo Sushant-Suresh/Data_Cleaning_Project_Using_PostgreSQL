@@ -163,17 +163,17 @@ ADD COLUMN owner_state VARCHAR(80);
 -- Updating the New Columns
 UPDATE nashville
 SET owner_address = CASE
-                        WHEN owneraddress IS NOT NULL THEN LEFT(owneraddress, POSITION(',' IN owneraddress) - 1)
+                        WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 1))
                         ELSE NULL
-                    END,
-      owner_state = CASE
-                        WHEN owneraddress IS NOT NULL THEN TRIM(SUBSTRING(owneraddress FROM LENGTH(owneraddress) - 2))
-                        ELSE NULL
-                    END,
-       owner_city = CASE
-                        WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
-                        ELSE NULL
-                    END;
+                     END,
+        owner_city = CASE
+                         WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
+                         ELSE NULL
+                     END,
+       owner_state = CASE
+                         WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ' ', -1))
+                         ELSE NULL
+                     END;
 
 -- Checking the Results
 SELECT owneraddress, owner_address, owner_city, owner_state
