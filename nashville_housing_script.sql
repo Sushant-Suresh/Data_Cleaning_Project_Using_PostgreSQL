@@ -115,17 +115,17 @@ ADD CONSTRAINT nashville_pk PRIMARY KEY (uniqueid);
 					-- Updating the New Columns
 					UPDATE nashville
 					SET owner_address = CASE
-                                            WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 1))
-                                            ELSE NULL
-                                        END,
-                           owner_city = CASE
-                                            WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
-                                            ELSE NULL
-                                        END,
-                          owner_state = CASE
-                                            WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ' ', -1))  -- Get the last part for state
-                                            ELSE NULL
-                                        END;
+                                                                WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 1))
+                                                                ELSE NULL
+                                                            END,
+                                               owner_city = CASE
+                                                                WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ',', 2))
+                                                                ELSE NULL
+                                                            END,
+                                              owner_state = CASE
+                                                                WHEN owneraddress IS NOT NULL THEN TRIM(SPLIT_PART(owneraddress, ' ', -1))
+                                                                ELSE NULL
+                                                            END;
 
 					-- Checking the Results
 					SELECT owneraddress, owner_address, owner_city, owner_state
